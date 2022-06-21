@@ -1,61 +1,16 @@
 const express = require('express')
 const router = express.Router()
-const Alien = require('../models/alien')
+const control = require('../controllers/controllers')
 
 
-router.get('/', async(req,res) => {
-    try{
-           const aliens = await Alien.find()
-           res.json(aliens)
-    }catch(err){
-        res.send('Error ' + err)
-    }
-})
-
-router.get('/:id', async(req,res) => {
-    try{
-           const alien = await Alien.findById(req.params.id)
-           res.json(alien)
-    }catch(err){
-        res.send('Error ' + err)
-    }
-})
-
-
-router.post('/', async(req,res) => {
-    const alien = new Alien({
-        name: req.body.name,
-        tech: req.body.tech,
-        email: req.body.email
-    })
-
-    try{
-        const a1 =  await alien.save() 
-        res.json(a1)
-    }catch(err){
-        res.send('Error')
-    }
-})
-
-router.patch('/:id',async(req,res)=> { 
-    try{
-        const alien = await Alien.findById(req.params.id) 
-        alien.tech = req.body.tech
-        const a1 = await alien.save()
-        res.json(a1)   
-    }catch(err){
-        res.send('Error')
-    }  
-
-})
-router.delete('/:id', async(req,res) => {
-    try{
-           const alien = await Alien.findById(req.params.id)
-           const a1 = await alien.remove()
-           res.json(alien)
-    }catch(err){
-        res.send('Error ' + err)
-    }
-})
-
+router.get('/getdetails', control.getdetails)
+router.get('/adduser', control.adduser)
+router.get('/viewuser', control.viewuser)
+router.get('/:id', control.databyid)
+router.post('/add', control.addsignup)
+router.get('/update/:id', control.updateSignIn)
+router.get('/delete/:id', control.deletesignup)
+router.get('updateuser/:id', control.getUserData)
+router.get('/singledata/:id', control.singledata)
+router.post('/update/:id', control.update)
 module.exports = router
