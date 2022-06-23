@@ -12,7 +12,8 @@ const alienSchema = new schema(
         },
         email: {
             type: String,
-            required: true
+            required: true,
+            unique: true
         },
         pwd: {
             type: String,
